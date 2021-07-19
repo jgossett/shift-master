@@ -1,6 +1,6 @@
-2021-07-16 Create database migration.
-2021-07-16 Create Shift controller.
-2021-07-16 Add liquid base support.
+x 2021-07-19 2021-07-16 Create database migration.
+2021-07-16 Create Work Shift controller. due:2021-07-19
+x 2021-07-19 2021-07-16 Add liquid base support. due:2021-07-19
 2021-07-16 Create readme file.
 2021-07-16 Create list endpoint. Order by start time. Can find by start time and end time.
 2021-07-16 Create view shift.

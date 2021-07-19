@@ -4,8 +4,8 @@ plugins {
 	id 'groovy'
 }
 
-group = 'com.example'
-version = '0.0.1-SNAPSHOT'
+group = 'com.joshuagossett.shiftmasters'
+version = '0.1.0-SNAPSHOT'
 sourceCompatibility = '11'
 
 repositories {
@@ -17,7 +17,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.codehaus.groovy:groovy'
 	implementation 'org.liquibase:liquibase-core'
+	implementation 'com.h2database:h2'
+
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

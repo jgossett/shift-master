@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 
 @SpringBootApplication
-class ShiftmasterApplication {
+class ShiftMasterApplication {
 
 	static void main(String[] args) {
-		SpringApplication.run(ShiftmasterApplication, args)
+		SpringApplication.run(ShiftMasterApplication, args)
 	}
 
 }
