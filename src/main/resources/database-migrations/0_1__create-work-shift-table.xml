@@ -5,18 +5,47 @@
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd
                    ">
 
-    <changeSet id="createShiftTable"
+    <changeSet id="createWorkShiftTable"
                author="Joshua Gossett">
 
-        <createTable tableName="workShift"
-                     remarks="">
-            <column name="id" type="bigint">
+        <createTable tableName="work_shift">
+
+            <column name="id"
+                    type="bigint"
+                    autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
 
-            <column name="startTime"
-                    type="time"/>
+            <column name="start_time"
+                    type="datetime">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="end_time"
+                    type="datetime">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="created_on"
+                    type="datetime">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="updated_on"
+                    type="datetime">
+                <constraints nullable="false" />
+            </column>
+
         </createTable>
+
+        
+        <createIndex tableName="work_shift" indexName="IX_WorkShift_StartTime">
+            <column name="start_time"/>
+        </createIndex>
+
+        <createIndex tableName="work_shift" indexName="IX_WorkShift_EndTime">
+            <column name="end_time"/>
+        </createIndex>
 
     </changeSet>
 
