@@ -14,4 +14,5 @@ class WorkShift {
 
     LocalDateTime startTime
     LocalDateTime endTime
+    boolean isSoftDeleted
 }

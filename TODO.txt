@@ -3,8 +3,12 @@ x 2021-07-19 2021-07-16 Create Work Shift controller. due:2021-07-19
 x 2021-07-19 2021-07-16 Add liquid base support. due:2021-07-19
 2021-07-16 Create readme file.
 x 2021-07-21 2021-07-16 Create list endpoint. Order by start time. Can find by start time and end time.
-2021-07-16 Create view shift.
+x 2021-07-21 2021-07-16 Create view shift.
 2021-07-16 Create create shift.
 2021-07-16 Created update shift. Shift must not over lap with another shift.
-2021-07-16 Create delete shift. Soft delete shift.
-2021-07-21 Create createdOn and updatedOn properties.
+x 2021-07-21 2021-07-16 Create delete shift. Soft delete shift.
+x 2021-07-21 2021-07-21 Create createdOn and updatedOn properties.
+2021-07-21 Create not found error on delete.
+2021-07-21 Adhoc test.
+2021-07-21 Return not found http status on get.
+2021-07-21 Create intergation tests.
