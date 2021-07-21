@@ -40,6 +40,7 @@ class WorkShift {
     Long version = 1L
 
     @AssertTrue(message="The 'startTime' must not before the 'endTime'.")
+    @JsonIgnore
     boolean isStartTimeBeforeEndTime() {
         startTime < endTime
     }
