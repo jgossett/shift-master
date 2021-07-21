@@ -32,15 +32,21 @@
                 <constraints nullable="false" />
             </column>
 
-<!--            <column name="created_on"-->
-<!--                    type="datetime">-->
-<!--                <constraints nullable="false" />-->
-<!--            </column>-->
+            <column name="created_on"
+                    type="datetime">
+                <constraints nullable="false" />
+            </column>
 
-<!--            <column name="updated_on"-->
-<!--                    type="datetime">-->
-<!--                <constraints nullable="false" />-->
-<!--            </column>-->
+            <column name="updated_on"
+                    type="datetime">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="version"
+                    type="bigint"
+                    defaultValueNumeric="1">
+                <constraints nullable="false"/>
+            </column>
 
         </createTable>
 

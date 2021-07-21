@@ -9,6 +9,7 @@ import java.time.LocalDateTime
 @Service
 @Transactional(readOnly = true)
 class WorkShiftService {
+    private static final COPY_EXCLUDED_PROPERTIES = ['id', 'createdOn', 'updatedOn', 'version', 'class', 'metaClass']
 
     @Autowired
     WorkShiftRepository workShiftRepository
@@ -28,4 +29,27 @@ class WorkShiftService {
         workShiftRepository.save(workShift)
     }
 
+    @Transactional
+    void create(WorkShift workShift) {
+        workShiftRepository.save(workShift)
+    }
+
+    @Transactional
+    void update(long id, WorkShift source) {
+        WorkShift destination = workShiftRepository.getById(id)
+        copyProperties(source, destination)
+
+        workShiftRepository.save(destination)
+    }
+
+    void copyProperties(Object source, Object destination){
+        source.properties.each{String key, Object value ->
+            boolean isBlacklistedProperty = key in COPY_EXCLUDED_PROPERTIES
+            if(!destination.hasProperty(key) || isBlacklistedProperty){
+                return
+            }
+
+            destination[key] = source[key]
+        }
+    }
 }
