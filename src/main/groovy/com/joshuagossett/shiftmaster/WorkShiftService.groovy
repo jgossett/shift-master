@@ -36,16 +36,17 @@ class WorkShiftService {
 
     @Transactional
     void update(long id, WorkShift source) {
-        WorkShift destination = workShiftRepository.getById(id)
+        WorkShift destination = workShiftRepository.findByIdAndIsSoftDeletedFalse(id).get()
         copyProperties(source, destination)
 
         workShiftRepository.save(destination)
     }
 
-    void copyProperties(Object source, Object destination){
-        source.properties.each{String key, Object value ->
-            boolean isBlacklistedProperty = key in COPY_EXCLUDED_PROPERTIES
-            if(!destination.hasProperty(key) || isBlacklistedProperty){
+    void copyProperties(Object source, Object destination) {
+        source.properties.each { String key, Object value ->
+            // skip property
+            def isBlacklistedProperty = { String propertyName -> propertyName in COPY_EXCLUDED_PROPERTIES }
+            if (!destination.hasProperty(key) || isBlacklistedProperty(key) ) {
                 return
             }
 

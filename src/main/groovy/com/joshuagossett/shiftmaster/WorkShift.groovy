@@ -1,5 +1,6 @@
 package com.joshuagossett.shiftmaster
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import org.springframework.data.annotation.Version
@@ -18,14 +19,19 @@ class WorkShift {
 
     LocalDateTime startTime
     LocalDateTime endTime
+
+    @JsonIgnore
     boolean isSoftDeleted
 
     @CreationTimestamp
+    @JsonIgnore
     LocalDateTime createdOn
 
     @UpdateTimestamp
+    @JsonIgnore
     LocalDateTime updatedOn
 
     @Version
+    @JsonIgnore
     Long version = 1L
 }
