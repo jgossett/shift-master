@@ -11,8 +11,6 @@ import java.time.LocalDateTime
 @Service
 @Transactional(readOnly = true)
 class WorkShiftService {
-    private static final COPY_EXCLUDED_PROPERTIES = ['id', 'createdOn', 'updatedOn', 'version', 'class', 'metaClass']
-
     @Autowired
     WorkShiftRepository workShiftRepository
 
@@ -20,7 +18,7 @@ class WorkShiftService {
         workShiftRepository.findAllByBetweenStartTimeAndEndTime(startTime, endTime)
     }
 
-    Optional<WorkShift> get(Long id) {
+    WorkShift get(Long id) {
         workShiftRepository.findByIdAndIsSoftDeletedFalse(id)
     }
 
@@ -32,36 +30,18 @@ class WorkShiftService {
     }
 
     @Transactional
-    void create(WorkShift workShift) {
+    void createOrUpdate(WorkShift workShift) {
         validateStartTimeAndEndTime(workShift)
-
         workShiftRepository.save(workShift)
     }
 
-    @Transactional
-    void update(long id, WorkShift source) {
-        validateStartTimeAndEndTime(source, id)
+    private void validateStartTimeAndEndTime(WorkShift workShift) {
+        boolean exists = workShiftRepository.existsByStartTimeAndEndTime(
+                workShift.startTime,
+                workShift.endTime,
+                workShift.id
+        )
 
-        WorkShift destination = workShiftRepository.findByIdAndIsSoftDeletedFalse(id).get()
-        copyProperties(source, destination)
-
-        workShiftRepository.save(destination)
-    }
-
-    private void copyProperties(Object source, Object destination) {
-        source.properties.each { String key, Object value ->
-            // skip property
-            def isBlacklistedProperty = { String propertyName -> propertyName in COPY_EXCLUDED_PROPERTIES }
-            if (!destination.hasProperty(key) || isBlacklistedProperty(key)) {
-                return
-            }
-
-            destination[key] = source[key]
-        }
-    }
-
-    private void validateStartTimeAndEndTime(WorkShift workShift, Long excludeId = null) {
-        boolean exists = workShiftRepository.existsByStartTimeAndEndTime(workShift.startTime, workShift.endTime, excludeId)
         if (!exists) {
             return
         }

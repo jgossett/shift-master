@@ -10,7 +10,7 @@ import java.time.LocalDateTime
 
 @RestController
 @RequestMapping(
-        path = '/WorkShift',
+        path = 'work-shifts',
         produces = [MediaType.APPLICATION_JSON_VALUE],
         consumes = [MediaType.APPLICATION_JSON_VALUE]
 )
@@ -20,8 +20,9 @@ class WorkShiftController {
     WorkShiftService workShiftService
 
     @PostMapping
-    void save(@RequestBody @Valid WorkShift workShift) {
-        workShiftService.create(workShift)
+    void save(@RequestBody @Valid WorkShiftRequest workShiftRequest) {
+        WorkShift workShift = toWorkShift(null, workShiftRequest)
+        workShiftService.createOrUpdate(workShift)
     }
 
     @GetMapping
@@ -35,13 +36,14 @@ class WorkShiftController {
     }
 
     @GetMapping('/{id}')
-    Optional<WorkShift> show(@PathVariable Long id) {
+    WorkShift show(@PathVariable Long id) {
         workShiftService.get(id)
     }
 
     @PutMapping('/{id}')
-    void update(@PathVariable Long id, @RequestBody @Valid WorkShift workShift) {
-        workShiftService.update(id, workShift)
+    void update(@PathVariable Long id, @RequestBody @Valid WorkShiftRequest workShiftRequest) {
+        WorkShift workShift = toWorkShift(id, workShiftRequest)
+        workShiftService.createOrUpdate(workShift)
     }
 
     @DeleteMapping('/{id}')
@@ -49,4 +51,12 @@ class WorkShiftController {
         workShiftService.softDelete(id)
     }
 
+    private WorkShift toWorkShift(Long id, WorkShiftRequest workShiftRequest) {
+        WorkShift workShift = id ? workShiftService.get(id) : new WorkShift()
+
+        workShift.startTime = workShiftRequest.startTime
+        workShift.endTime = workShiftRequest.endTime
+
+        workShift
+    }
 }

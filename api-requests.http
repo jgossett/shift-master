@@ -1,0 +1,73 @@
+### list all
+GET http://localhost:8080/api/v1/work-shifts
+Content-Type: application/json
+
+### list all by start time and end time.
+GET http://localhost:8080/api/v1/work-shifts?startTime=2020-01-01T00:00:00&endTime=2020-01-02T23:23:59
+Content-Type: application/json
+
+### list all by start time.
+GET http://localhost:8080/api/v1/work-shifts?startTime=2020-01-03T23:23:59
+Content-Type: application/json
+
+### create 1
+POST http://localhost:8080/api/v1/work-shifts
+Content-Type: application/json
+
+{
+  "startTime": "2020-01-01T00:00:00",
+  "endTime": "2020-01-01T23:59:57"
+}
+
+### create - fail - start time is before end time.
+POST http://localhost:8080/api/v1/work-shifts
+Content-Type: application/json
+
+{
+  "startTime": "2020-01-01T00:00:01",
+  "endTime": "2020-01-01T00:00:00"
+}
+
+### create - fail - overlaps with another work shift.
+POST http://localhost:8080/api/v1/work-shifts
+Content-Type: application/json
+
+{
+  "startTime": "2020-01-01T23:59:57",
+  "endTime": "2020-01-02T00:00:00"
+}
+
+### create 2
+POST http://localhost:8080/api/v1/work-shifts
+Content-Type: application/json
+
+{
+  "startTime": "2020-01-02T00:00:00",
+  "endTime": "2020-01-02T23:59:57"
+}
+
+### create 3
+POST http://localhost:8080/api/v1/work-shifts
+Content-Type: application/json
+
+{
+  "startTime": "2019-12-30T00:00:00",
+  "endTime": "2019-12-30T23:59:57"
+}
+
+### update
+PUT http://localhost:8080/api/v1/work-shifts/1
+Content-Type: application/json
+
+{
+  "startTime": "2020-01-01T00:00:00",
+  "endTime": "2020-01-01T23:00:00"
+}
+
+### view
+GET http://localhost:8080/api/v1/work-shifts/2
+Content-Type: application/json
+
+### delete
+DELETE http://localhost:8080/api/v1/work-shifts/1
+Content-Type: application/json

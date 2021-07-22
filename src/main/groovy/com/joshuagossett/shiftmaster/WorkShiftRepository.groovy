@@ -15,7 +15,8 @@ interface WorkShiftRepository extends JpaRepository<WorkShift, Long> {
     @Query("""
         SELECT ws 
         FROM WorkShift ws
-        WHERE (:startTime IS NULL OR :startTime <= ws.startTime)
+        WHERE
+            (:startTime IS NULL OR :startTime <= ws.startTime)
             AND (:endTime IS NULL OR ws.endTime <= :endTime)
             AND ws.isSoftDeleted = false
         ORDER BY ws.startTime DESC
@@ -25,7 +26,7 @@ interface WorkShiftRepository extends JpaRepository<WorkShift, Long> {
             @Param("endTime") LocalDateTime endTime
     )
 
-    Optional<WorkShift> findByIdAndIsSoftDeletedFalse(Long id)
+    WorkShift findByIdAndIsSoftDeletedFalse(Long id)
 
     @Query("""
         SELECT 
